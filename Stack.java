@@ -7,10 +7,12 @@ public class Stack {
     Stack(){
         this.top = -1;
     }
-    public void isEmpty(){
+    public boolean isEmpty(){
         if(top<0){
             System.out.println("stack is empty");
+            return true;
         }
+        return false;
     }
     public static void main(String[] args) {
         Stack stack = new Stack();
@@ -26,6 +28,9 @@ public class Stack {
         a[++top] = x;
     }
     public int pop(){
+        if(isEmpty()==true){
+            return -1;
+        }
         return a[--top];
     }
     public int peek(){
