@@ -16,6 +16,8 @@ public class LongestCommonSequence {
 
          int maxLen2 = LCSDp(x,y,M,N);
          System.out.println(maxLen2+" Dp");
+
+         printLCS(x,y,M,N);
     }
     public static int LCS(String x, String y, int i, int j, String s){
         if(i==0 || j==0){
@@ -55,6 +57,39 @@ public class LongestCommonSequence {
             }
         }
         return dp[M][N];
+    }
+
+    public static String printLCS(String x, String y, int M, int N){
+        int dp[][] = new int[M+1][N+1];
+        for (int[] row: dp)
+            Arrays.fill(row, 0);
+        for (int i=1;i<M+1;i++){
+            for (int j=1;j<N+1;j++){
+                if(x.charAt(i-1)==y.charAt(j-1)){
+                    dp[i][j] = 1+dp[i-1][j-1];
+                }else{
+                    dp[i][j] = Math.max(dp[i][j-1],dp[i-1][j]);
+                }
+            }
+        }
+        int index = dp[M][N];
+        int i=M;
+        int j=N;
+        String s = "";
+        while (i>0 && j>0){
+            if(x.charAt(i-1)==y.charAt(j-1)){
+                s = x.charAt(i-1)+s;
+               i--;
+               j--;
+            } else{
+              if(dp[i][j-1]>dp[i-1][j]){
+                  j--;
+              } else{
+                  i--;
+              }
+            }
+        }
+        return s;
     }
 
 }
